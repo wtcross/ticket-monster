@@ -1,7 +1,6 @@
 language: java
 jdk:
   - oraclejdk7
-  - openjdk6
 before_install:
   - pip install --user ansible-tower-cli awscli
   - export PATH=$PATH:$HOME/.local/bin
