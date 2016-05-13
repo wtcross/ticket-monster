@@ -1,13 +1,11 @@
 language: java
+sudo: false
 jdk:
   - oraclejdk7
   - openjdk6
 before_install:
-  - pip install ansible-tower-cli awscli
-  - tower-cli config host ${TOWER_HOST}
-  - tower-cli config username ${TOWER_USER}
-  - tower-cli config password ${TOWER_PASSWORD}
+  - pip install awscli
 script: cd ${TRAVIS_BUILD_DIR}/demo && mvn clean package
 after_success:
   - aws s3 cp ${TRAVIS_BUILD_DIR}/demo/target/ticket-monster.war s3://ansible-demo-build-artifacts/ticket-monster/${TRAVIS_COMMIT}/ticket-monster.war
-  - tower-cli job launch --job-template=8216 --extra-vars="commit=${TRAVIS_COMMIT}"
+  - ${TRAVIS_BUILD_DIR}/deploy-app.sh
