@@ -8,6 +8,7 @@ before_install:
   - tower-cli config host ${TOWER_HOST}
   - tower-cli config username ${TOWER_USER}
   - tower-cli config password ${TOWER_PASSWORD}
+  - tower-cli config verify_ssl false
 script: cd ${TRAVIS_BUILD_DIR}/demo && mvn clean package
 after_success:
   - aws s3 cp ${TRAVIS_BUILD_DIR}/demo/target/ticket-monster.war s3://ansible-demo-build-artifacts/ticket-monster/${TRAVIS_COMMIT}/ticket-monster.war
